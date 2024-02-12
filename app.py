@@ -4,12 +4,12 @@ import altair as alt
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
+import ast
 
 from db import conn_str
+df = sqlio.read_sql_query("SELECT * FROM events", conn_str)
 
 st.title("Seattle Events")
-
-df = sqlio.read_sql_query("SELECT * FROM events", conn_str)
 
 # 1-a. What category of events are most common in Seattle?
 st.subheader('💡 What category of events are most common in Seattle?')
@@ -88,6 +88,30 @@ if selected_weather_condition != 'All':
 st.write(filtered_df)
 
 
-m = folium.Map(location=[47.6062, -122.3321], zoom_start=12)
-folium.Marker([47.6062, -122.3321], popup='Seattle').add_to(m)
-st_folium(m, width=1200, height=600)
+# Initialize the map centered around Seattle
+m = folium.Map(location=[47.6504529, -122.3499861], zoom_start=12)
+
+# Loop through the filtered DataFrame and add a marker for each event
+for idx, row in filtered_df.iterrows():
+    # Check if geolocation data exists and is not null
+    if pd.notnull(row['geolocation']):
+        # Remove curly braces and convert the geolocation string to a tuple of floats
+        try:
+            # Removing curly braces and converting to a proper tuple format
+            geolocation_str = row['geolocation'].strip("{}")
+            # Splitting the string by comma and converting each part to float
+            lat, lon = map(float, geolocation_str.split(','))
+            # Adding the marker to the map
+            folium.Marker(
+                location=[lat, lon],
+                popup=f"{row['title']} - {row['date'].strftime('%Y-%m-%d')}",
+            ).add_to(m)
+        except ValueError:
+            print(f"Error parsing geolocation for row {idx}: {row['geolocation']}")
+
+# Display the map in Streamlit
+st_folium(m, width=800, height=600)
+
+# m = folium.Map(location=[47.6504529, -122.3499861], zoom_start=12)
+# folium.Marker([47.6504529, -122.3499861], popup='Seattle').add_to(m)
+# st_folium(m, width=1200, height=600)

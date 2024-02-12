@@ -13,9 +13,9 @@ This project provides an interactive platform for exploring and visualizing data
 
 ## Setup and Installation
 
-1. **Environment Setup**: Ensure Python 3.8+ is installed. Create a virtual environment and install dependencies:
+**Environment Setup**: Ensure Python 3.8+ is installed. Create a virtual environment and install dependencies:
 
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-   pip install -r requirements.txt
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+pip install -r requirements.txt

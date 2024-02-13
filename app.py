@@ -58,8 +58,6 @@ filtered_df = df.copy()
 # 2-a. Dropdown to Filter by Category
 categories = df['category'].unique()
 selected_category = st.selectbox("Select a category", options=categories)
-
-# Apply category filter immediately
 filtered_df = filtered_df[filtered_df['category'] == selected_category]
 
 # 2-b. Date Range Selector for Event Date

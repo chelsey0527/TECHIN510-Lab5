@@ -19,3 +19,6 @@ This project provides an interactive platform for exploring and visualizing data
 python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 pip install -r requirements.txt
+
+## Reflection
+Throughout the Seattle Events Interactive Data Visualization App project, I've evolved significantly. It taught me the complexities of web scraping, the power of data visualization with Streamlit, and efficient database management. This journey has not only honed my technical skills but also deepened my understanding of making data accessible and engaging for a broad audience.
